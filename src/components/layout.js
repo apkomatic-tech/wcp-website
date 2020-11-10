@@ -2,10 +2,13 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Global, css } from "@emotion/core"
 import globalStyles from "../styles/globalStyles"
-import Nav from "./nav"
+import PageStyles from "../styles/pageStyles"
+import Header from "./header"
+import Footer from "./footer"
+
 import "normalize.css"
 
-const Layout = ({ children }) => {
+const Layout = ({ path, children }) => {
   return (
     <>
       <Global
@@ -13,8 +16,9 @@ const Layout = ({ children }) => {
           ${globalStyles}
         `}
       />
-      <Nav />
-      {children}
+      <Header isHome={path === "/"} />
+      {path === "/" ? children : <PageStyles>{children}</PageStyles>}
+      {path !== "/" && <Footer />}
     </>
   )
 }
