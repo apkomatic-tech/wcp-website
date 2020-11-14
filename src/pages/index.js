@@ -4,7 +4,7 @@ import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
 import SEO from "../components/seo"
-import { primaryBtn, secondaryBtn } from "../styles/buttonStyles"
+import { primaryBtn } from "../styles/buttonStyles"
 import heroBackground from "../images/hero.jpg"
 
 const Hero = styled.div`

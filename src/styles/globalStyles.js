@@ -5,7 +5,7 @@ export default `
         --grey: #4a4a4a;
         --white: #fff;
         --offWhite: #EDF2F4;
-        --red: #8C031C;
+        --red: #B4184C;
         --pageWidth: 96rem;
     }
 
