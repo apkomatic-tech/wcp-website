@@ -81,7 +81,7 @@ export default function ({ isHome }) {
         <HeaderViewContainer>
           <BrandLink to="/">Work Creation Program</BrandLink>
           <DesktopNav />
-          <DesktopContactBtn to="/contact">
+          <DesktopContactBtn to="/contact-us">
             Contact Us <RiArrowRightSLine />{" "}
           </DesktopContactBtn>
           <MobileNavToggle onClick={() => openMobileNav()}>
