@@ -35,7 +35,16 @@ export default `
     .h1,
     .h2,
     .h3 {
-        font-weigth: bold;
+        font-weight: bold;
+    }
+
+    h1,
+    h2,
+    h3,
+    .h1,
+    .h2,
+    .h3 {
+        margin: 0 0 1.6rem;
     }
 
     .text-right {
@@ -63,5 +72,9 @@ export default `
         &:hover {
             color: var(--red);
         }
+    }
+
+    .highlight {
+        color: var(--red);
     }
 `

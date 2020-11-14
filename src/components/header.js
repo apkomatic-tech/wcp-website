@@ -1,15 +1,16 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "@emotion/styled"
 import { Link } from "gatsby"
 import { FaBars, FaTimes } from "react-icons/fa"
+import { motion } from "framer-motion"
 
 const HeaderView = styled.header`
-  position: ${props => (props.isHome ? "absolute" : "relative")};
+  position: ${(props) => (props.isHome ? "absolute" : "relative")};
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  background-color: ${props => (props.isHome ? "transparent" : "var(--red)")};
+  background-color: ${(props) => (props.isHome ? "transparent" : "var(--red)")};
   padding: 1rem 2rem;
 `
 const HeaderViewContainer = styled.div`
@@ -18,7 +19,7 @@ const HeaderViewContainer = styled.div`
   justify-content: space-between;
 `
 const BrandLink = styled(Link)`
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   color: var(--white);
   &:hover,
   &:focus {
@@ -34,7 +35,7 @@ const DesktopNav = styled.nav`
     padding: 0;
     margin: 0;
   }
-  li {
+  > ul > li {
     padding: 0;
     display: inline-block;
     margin: 0 3rem 0 0;
@@ -42,7 +43,57 @@ const DesktopNav = styled.nav`
       margin-right: 0;
     }
   }
-  a {
+  > ul > li.with-dropdown {
+    button[type="button"] {
+      appearance: none;
+      color: var(--white);
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      outline: 0;
+    }
+    position: relative;
+    z-index: 1;
+    span {
+      cursor: pointer;
+    }
+    .dropdown {
+      box-sizing: border-box;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      min-width: 220px;
+      background: var(--white);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 50ms ease;
+      padding: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      &:before {
+        content: "";
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-top: 10px solid transparent;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid var(--white);
+        display: block;
+        position: absolute;
+      }
+      a {
+        color: var(--black);
+      }
+
+      &.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+  > ul > li > a,
+  > ul > li.with-dropdown > button {
     color: var(--white);
     border-bottom: 2px solid transparent;
     position: relative;
@@ -60,8 +111,9 @@ const DesktopNav = styled.nav`
       pointer-events: none;
       transition: transform 200ms;
     }
-    &[aria-current]:after,
-    &:hover:after {
+    &.active:after,
+    &:hover:after,
+    &:focus:after {
       opacity: 1;
       transform: translateY(2px);
     }
@@ -82,7 +134,7 @@ const DesktopNavContactBtn = styled(Link)`
     display: none;
   }
 `
-
+// styles specific to mobile
 const MobileNavToggle = styled.button`
   border: 0;
   background: transparent;
@@ -94,8 +146,7 @@ const MobileNavToggle = styled.button`
     display: none;
   }
 `
-
-const MobileNav = styled.nav`
+const MobileNav = styled(motion.nav)`
   position: fixed;
   top: 0;
   left: 0;
@@ -103,15 +154,12 @@ const MobileNav = styled.nav`
   height: 100vh;
   z-index: 999;
   background: var(--white);
-  display: ${props => (props.show ? "block" : "none")};
   align-items: flex-start;
   padding: 1rem 2rem;
-
   ul {
     list-style: none;
   }
 `
-
 const MobileNavHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -138,8 +186,7 @@ const MobileNavHeader = styled.div`
     color: var(--black);
   }
 `
-
-const MobileNavList = styled.nav`
+const MobileNavList = styled.div`
   ul {
     padding: 0;
     margin: 0;
@@ -154,7 +201,7 @@ const MobileNavList = styled.nav`
     display: block;
   }
 
-  a[aria-current] {
+  a.active {
     color: var(--red);
   }
 
@@ -185,8 +232,31 @@ const MobileNavList = styled.nav`
   }
 `
 
+const mobileNavVariants = {
+  visible: {
+    x: 0,
+    transition: {
+      type: "spring",
+      bounce: 0,
+      duration: 0.25,
+    },
+  },
+  hidden: {
+    x: "100%",
+    transition: {
+      type: "spring",
+      bounce: 0,
+      duration: 0.25,
+    },
+  },
+}
+
 export default function ({ isHome }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
+
+  function closeMobileNav() {
+    setMobileNavOpen(false)
+  }
 
   return (
     <>
@@ -196,16 +266,71 @@ export default function ({ isHome }) {
           <DesktopNav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link activeClassName="active" to="/">
+                  Home
+                </Link>
+              </li>
+              <li className="with-dropdown">
+                <button type="button" onClick={() => alert("click")}>
+                  Programs
+                </button>
+                <ul className="dropdown">
+                  <li>
+                    <Link
+                      activeClassName="active"
+                      to="/programs/adult-developmental-center"
+                      onClick={closeMobileNav}
+                    >
+                      Adult Developmental Center
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      activeClassName="active"
+                      to="/programs/behavior-management-system"
+                      onClick={closeMobileNav}
+                    >
+                      Behavior Management System
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li className="with-dropdown">
+                <button type="button">Training</button>
+                <ul className="dropdown">
+                  <li>
+                    <Link
+                      activeClassName="active"
+                      to="/training/work"
+                      onClick={closeMobileNav}
+                    >
+                      Work Training
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      activeClassName="active"
+                      to="/training/social"
+                      onClick={closeMobileNav}
+                    >
+                      Social Skills
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      activeClassName="active"
+                      to="/training/community"
+                      onClick={closeMobileNav}
+                    >
+                      Community Skills
+                    </Link>
+                  </li>
+                </ul>
               </li>
               <li>
-                <Link to="/training">Training</Link>
-              </li>
-              <li>
-                <Link to="/programs">Programs</Link>
-              </li>
-              <li>
-                <Link to="/about-us">About</Link>
+                <Link activeClassName="active" to="/about-us">
+                  About
+                </Link>
               </li>
             </ul>
           </DesktopNav>
@@ -215,7 +340,11 @@ export default function ({ isHome }) {
           </MobileNavToggle>
         </HeaderViewContainer>
       </HeaderView>
-      <MobileNav show={mobileNavOpen}>
+      <MobileNav
+        initial="hidden"
+        animate={mobileNavOpen ? "visible" : "hidden"}
+        variants={mobileNavVariants}
+      >
         <MobileNavHeader>
           <Link className="brand" to="/">
             Work Creation Program
@@ -231,19 +360,39 @@ export default function ({ isHome }) {
         <MobileNavList>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link activeClassName="active" to="/" onClick={closeMobileNav}>
+                Home
+              </Link>
             </li>
             <li className="indented-list">
               <span>Training</span>
               <ul>
                 <li>
-                  <Link to="/training/work">Work</Link>
+                  <Link
+                    activeClassName="active"
+                    to="/training/work"
+                    onClick={closeMobileNav}
+                  >
+                    Work
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/training/social">Social Skills</Link>
+                  <Link
+                    activeClassName="active"
+                    to="/training/social"
+                    onClick={closeMobileNav}
+                  >
+                    Social Skills
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/training/comminity">Community Skills</Link>
+                  <Link
+                    activeClassName="active"
+                    to="/training/comminity"
+                    onClick={closeMobileNav}
+                  >
+                    Community Skills
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -251,25 +400,51 @@ export default function ({ isHome }) {
               <span>Programs</span>
               <ul>
                 <li>
-                  <Link to="/programs/adult-developmental-center">
+                  <Link
+                    activeClassName="active"
+                    to="/programs/adult-developmental-center"
+                    onClick={closeMobileNav}
+                  >
                     Adult Developmental Center
                   </Link>
                 </li>
                 <li>
-                  <Link to="/programs/behavior-management-system">
+                  <Link
+                    activeClassName="active"
+                    to="/programs/behavior-management-system"
+                    onClick={closeMobileNav}
+                  >
                     Behavior Management System
                   </Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/careers">Careers</Link>
+              <Link
+                activeClassName="active"
+                to="/careers"
+                onClick={closeMobileNav}
+              >
+                Careers
+              </Link>
             </li>
             <li>
-              <Link to="/about-us">About</Link>
+              <Link
+                activeClassName="active"
+                to="/about-us"
+                onClick={closeMobileNav}
+              >
+                About
+              </Link>
             </li>
             <li>
-              <Link to="/contact-us">Contact Us</Link>
+              <Link
+                activeClassName="active"
+                to="/contact-us"
+                onClick={closeMobileNav}
+              >
+                Contact Us
+              </Link>
             </li>
           </ul>
         </MobileNavList>

@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Global, css } from "@emotion/core"
 import globalStyles from "../styles/globalStyles"
-import PageStyles from "../styles/pageStyles"
+import Page from "../styles/pageStyles"
 import Header from "./header"
 import Footer from "./footer"
 
@@ -17,7 +17,7 @@ const Layout = ({ path, children }) => {
         `}
       />
       <Header isHome={path === "/"} />
-      {path === "/" ? children : <PageStyles>{children}</PageStyles>}
+      {path === "/" ? children : <Page>{children}</Page>}
       {path !== "/" && <Footer />}
     </>
   )
