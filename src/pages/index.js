@@ -1,10 +1,8 @@
 import React from "react"
-import { Link } from "gatsby"
-import { css } from "@emotion/core"
-import styled from "@emotion/styled"
+import styled from "styled-components"
 
 import SEO from "../components/seo"
-import { primaryBtn } from "../styles/buttonStyles"
+import { ButtonLink } from "../components/shared/Button"
 import heroBackground from "../images/hero.jpg"
 
 const Hero = styled.div`
@@ -32,6 +30,7 @@ const Hero = styled.div`
 
     @media screen and (max-width: 1024px) {
       padding-left: 2rem;
+      padding-right: 2rem;
       width: 100vw;
     }
   }
@@ -49,6 +48,21 @@ const Hero = styled.div`
 const HeroButtons = styled.div`
   display: flex;
   margin-top: 2rem;
+  @media screen and (min-width: 640px) {
+    a:not(:last-of-type) {
+      margin-right: 1.5rem;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+    a {
+      width: 100%;
+      display: block;
+      &:not(:last-of-type) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
 `
 
 const IndexPage = () => (
@@ -63,14 +77,10 @@ const IndexPage = () => (
           environments.
         </p>
         <HeroButtons>
-          <Link
-            to="/"
-            css={css`
-              ${primaryBtn}
-            `}
-          >
+          <ButtonLink primary to="/">
             See our programs
-          </Link>
+          </ButtonLink>
+          <ButtonLink to="/contact-us">Contact Us</ButtonLink>
         </HeroButtons>
       </div>
     </Hero>

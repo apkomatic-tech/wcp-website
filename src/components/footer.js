@@ -1,5 +1,5 @@
 import React from "react"
-import styled from "@emotion/styled"
+import styled from "styled-components"
 
 const FooterStyles = styled.footer`
   background-color: rgba(251, 250, 255, 0.75);

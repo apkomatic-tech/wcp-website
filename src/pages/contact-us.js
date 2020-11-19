@@ -1,8 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
-
-import styled from "@emotion/styled"
+import styled from "styled-components"
 
 import SEO from "../components/seo"
 
@@ -27,6 +26,13 @@ const Card = styled.div`
   .card-content {
     padding: 1rem;
   }
+  .gatsby-image-wrapper {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 2rem auto;
+    display: block;
+  }
 
   h1 {
     font-size: 2rem;
@@ -35,11 +41,18 @@ const Card = styled.div`
 `
 
 export default () => {
-  const benImage = useStaticQuery(graphql`
+  const imageData = useStaticQuery(graphql`
     query {
-      placeholderImage: file(relativePath: { eq: "ben-mock.jpg" }) {
+      placeholderImage1: file(relativePath: { eq: "man-mock.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 200) {
+          fluid(maxWidth: 500) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      placeholderImage2: file(relativePath: { eq: "woman-mock.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 500) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -54,10 +67,13 @@ export default () => {
       <PageStyles>
         <div className="company-people-block">
           <Card>
-            <Img
-              fluid={benImage.placeholderImage.childImageSharp.fluid}
-              alt="Ben Behzadi"
-            />
+            <div className="card-image">
+              <Img
+                fluid={imageData.placeholderImage1.childImageSharp.fluid}
+                alt="Ben Behzadi"
+              />
+            </div>
+
             <div className="card-content">
               <h1>Ben Behzadi</h1>
               <p>Executive Director</p>
@@ -70,17 +86,19 @@ export default () => {
             </div>
           </Card>
           <Card>
-            <Img
-              fluid={benImage.placeholderImage.childImageSharp.fluid}
-              alt="Ben Behzadi"
-            />
+            <div className="card-image">
+              <Img
+                fluid={imageData.placeholderImage2.childImageSharp.fluid}
+                alt="Ladan Kasmai"
+              />
+            </div>
             <div className="card-content">
               <h1>Ladan Kasmai</h1>
               <p>Executive Director</p>
               <p>
                 Email:{" "}
-                <a href="mailto:ben@workcreationprogram.com">
-                  ben@workcreationprogram.com
+                <a href="mailto:ladan@workcreationprogram.com">
+                  ladan@workcreationprogram.com
                 </a>
               </p>
             </div>

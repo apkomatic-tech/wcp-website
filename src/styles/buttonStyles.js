@@ -7,6 +7,7 @@ const base = `
     padding: 1rem 1.5rem;
     text-decoration: none;
     text-align: center;
+    transition: 100ms ease;
 `
 
 const primaryBtn = `
@@ -17,7 +18,6 @@ const primaryBtn = `
     &:focus,
     &:active {
         color: var(--white);
-        opacity: .9;
     }
 `
 
@@ -29,7 +29,6 @@ const secondaryBtn = `
     &:focus,
     &:active {
         color: var(--black);
-        opacity: .9;
     }
 `
 

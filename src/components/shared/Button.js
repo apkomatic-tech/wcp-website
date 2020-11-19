@@ -1,30 +1,27 @@
 import React from "react"
-import styled from "@emotion/styled"
+import styled from "styled-components"
 import { Link } from "gatsby"
 
 const Button = styled.button`
+  appearance: none;
   border-radius: 5px;
-  background-color: ${props => (props.primary ? `var(--red)` : "var(--white")};
-  color: ${props => (props.primary ? `var(--white)` : "var(--black")};
-  padding: 1.5rem;
   border: 0;
-`
-const ButtonLink = Button.withComponent("a")`
-    text-decoration: none;
-`
-export default function ({
-  primary = true,
-  isLink = false,
-  to = "",
-  href = "",
-  ...rest
-}) {
-  if (isLink && to) {
-    return <Link to={to} {...rest} />
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  text-align: center;
+  transition: 100ms ease;
+  background-color: ${(props) =>
+    props.primary ? "var(--red)" : "var(--white)"};
+  color: ${(props) => (props.primary ? "var(--white)" : "var(--black)")};
+  &:hover,
+  &:active,
+  &:focus {
+    color: ${(props) => (props.primary ? "var(--white)" : "var(--black)")};
   }
-  if (isLink && href) {
-    return <ButtonLink href={href} {...rest} primary={primary} />
-  }
+`
+const ButtonLink = Button.withComponent(Link)
+const ButtonLinkExternal = Button.withComponent("a")
 
-  return <Button {...rest} primary={primary} />
-}
+export { Button, ButtonLink, ButtonLinkExternal }

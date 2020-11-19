@@ -19,7 +19,7 @@ export default `
     }
 
     body {
-        font-size: 1.6rem;
+        font-size: 1.7rem;
         font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         line-height: 1.5;
         background-color: var(--white);

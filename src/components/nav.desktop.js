@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
-import styled from "@emotion/styled"
+import styled from "styled-components"
+import { RiArrowDownSLine } from "react-icons/ri"
 
 const DesktopNav = styled.nav`
   ul {
@@ -12,63 +13,61 @@ const DesktopNav = styled.nav`
     padding: 0;
     display: inline-block;
     margin: 0 3rem 0 0;
-    &:last-child {
+    @media screen and (max-width: 1024px) {
+      margin: 0 2rem 0 0;
+    }
+    &:last-of-type {
       margin-right: 0;
     }
   }
   > ul > li.with-dropdown {
-    button[type="button"] {
+    button {
       appearance: none;
       color: var(--white);
       border: 0;
       background: transparent;
       cursor: pointer;
       outline: 0;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      svg {
+        margin-left: 0.5rem;
+      }
     }
     position: relative;
     z-index: 1;
-    span {
-      cursor: pointer;
-    }
     .dropdown {
       box-sizing: border-box;
       position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      min-width: 220px;
+      left: 0;
+      min-width: 260px;
       background: var(--white);
-      opacity: 0;
-      pointer-events: none;
+      visibility: hidden;
+      // pointer-events: none;
       transition: opacity 50ms ease;
       padding: 1rem;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      &:before {
-        content: "";
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        border-top: 10px solid transparent;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid var(--white);
-        display: block;
-        position: absolute;
-      }
+      border-top: 5px solid var(--red);
       a {
         color: var(--black);
       }
-
-      &.show {
-        opacity: 1;
-        pointer-events: auto;
+      a:hover,
+      &:focus {
+        color: var(--red);
       }
+    }
+    // dropdown interactions
+    &:hover .dropdown,
+    &:focus .dropdown {
+      visibility: visible;
     }
   }
   > ul > li > a,
   > ul > li.with-dropdown > button {
     color: var(--white);
-    border-bottom: 2px solid transparent;
+  }
+  > ul > li:not(.with-dropdown) a {
     position: relative;
     z-index: 1;
     &:after {
@@ -91,7 +90,7 @@ const DesktopNav = styled.nav`
       transform: translateY(2px);
     }
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 `
@@ -106,8 +105,8 @@ export default function () {
           </Link>
         </li>
         <li className="with-dropdown">
-          <button type="button" onClick={() => alert("click")}>
-            Programs
+          <button type="button">
+            Programs <RiArrowDownSLine />
           </button>
           <ul className="dropdown">
             <li>
@@ -129,7 +128,9 @@ export default function () {
           </ul>
         </li>
         <li className="with-dropdown">
-          <button type="button">Training</button>
+          <button type="button">
+            Training <RiArrowDownSLine />
+          </button>
           <ul className="dropdown">
             <li>
               <Link activeClassName="active" to="/training/work">

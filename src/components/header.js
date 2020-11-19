@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import styled from "@emotion/styled"
+import styled from "styled-components"
 import { Link } from "gatsby"
 import { RiArrowRightSLine, RiMenuLine } from "react-icons/ri"
 
@@ -55,7 +55,7 @@ const DesktopContactBtn = styled(Link)`
   &:hover svg {
     transform: translateX(4px);
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 `
@@ -67,7 +67,8 @@ const MobileNavToggle = styled.button`
   color: var(--white);
   font-size: 2.5rem;
   cursor: pointer;
-  @media screen and (min-width: 767px) {
+  padding: 0;
+  @media screen and (min-width: 1024px) {
     display: none;
   }
 `
