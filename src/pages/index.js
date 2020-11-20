@@ -77,10 +77,7 @@ const IndexPage = () => (
           environments.
         </p>
         <HeroButtons>
-          <ButtonLink primary to="/">
-            See our programs
-          </ButtonLink>
-          <ButtonLink to="/contact-us">Contact Us</ButtonLink>
+          <ButtonLink to="/">See our programs</ButtonLink>
         </HeroButtons>
       </div>
     </Hero>

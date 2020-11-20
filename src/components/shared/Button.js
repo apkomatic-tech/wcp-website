@@ -13,7 +13,7 @@ const Button = styled.button`
   text-align: center;
   transition: 100ms ease;
   background-color: ${(props) =>
-    props.primary ? "var(--red)" : "var(--white)"};
+    props.primary ? "var(--red)" : "var(--yellow)"};
   color: ${(props) => (props.primary ? "var(--white)" : "var(--black)")};
   &:hover,
   &:active,
