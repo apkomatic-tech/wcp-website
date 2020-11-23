@@ -9,27 +9,36 @@ const CardDeck = styled.div`
   max-width: 96rem;
   margin: auto;
   display: grid;
-  place-items: center;
-  grid-template-columns: repeat(2, minmax(250px, 450px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 2rem;
-  justify-content: center;
   @media screen and (max-width: 767px) {
-    padding: 0 5rem;
+    padding: 0;
+    max-width: 100%;
     grid-template-columns: 1fr;
   }
 `
 
 const Card = styled.div`
   background: var(--white);
-  box-shadow: 3px 3px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  .card-content {
-    padding: 2rem;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: minmax(80px, 100px) 1fr;
+
+  .email {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
-  .gatsby-image-wrapper {
-    height: 290px;
-    display: block;
-    object-fit: fill;
+
+  .card-image {
+    object-fit: contain;
+    width: 100%;
+    max-width: 100px;
+  }
+  .card-content {
+    padding: 0 0 1rem;
+    @media screen and (min-width: 767px) {
+      font-size: 1.5rem;
+    }
   }
 
   h1 {
@@ -43,14 +52,14 @@ export default () => {
     query {
       placeholderImage1: file(relativePath: { eq: "man-mock.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 350) {
+          fluid(maxWidth: 100, quality: 100) {
             ...GatsbyImageSharpFluid
           }
         }
       }
       placeholderImage2: file(relativePath: { eq: "woman-mock.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 350) {
+          fluid(maxWidth: 100, quality: 100) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -76,8 +85,31 @@ export default () => {
             <p>Executive Director</p>
             <p>
               Email:{" "}
-              <a href="mailto:ben@workcreationprogram.com">
+              <a
+                href="mailto:ben@workcreationprogram.com"
+                style={{
+                  whiteSpace: "pre-wrap",
+                }}
+              >
                 ben@workcreationprogram.com
+              </a>
+            </p>
+          </div>
+        </Card>
+        <Card>
+          <div className="card-image">
+            <Img
+              fluid={imageData.placeholderImage2.childImageSharp.fluid}
+              alt="Ladan Kasmai"
+            />
+          </div>
+          <div className="card-content">
+            <h1>Ladan Kasmai</h1>
+            <p>Executive Director</p>
+            <p className="email">
+              Email:{" "}
+              <a href="mailto:ladan@workcreationprogram.com">
+                ladan@workcreationprogram.com
               </a>
             </p>
           </div>

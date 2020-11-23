@@ -1,10 +1,10 @@
 :root {
-  --black: #111;
+  --black: #1d1c21;
   --grey: #4a4a4a;
-  --white: #fff;
-  --offWhite: #edf2f4;
+  --white: #edf2f4;
   --red: #8f0c43;
-  --yellow: #ebde86;
+  --yellow: #f08700;
+  --primary: #68124a;
   --pageWidth: 96rem;
 }
 

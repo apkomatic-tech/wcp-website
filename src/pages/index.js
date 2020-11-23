@@ -7,7 +7,8 @@ import heroBackground from "../images/hero.jpg"
 
 const Hero = styled.div`
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 600px;
   background-size: cover;
   background-image: url(${heroBackground});
   display: flex;
@@ -22,7 +23,9 @@ const Hero = styled.div`
   }
   p {
     font-size: 2rem;
-    color: var(--offWhite);
+    color: var(--white);
+    opacity: 0.8;
+    margin-bottom: 3rem;
   }
   .hero-container {
     padding-left: 8rem;
@@ -65,7 +68,7 @@ const HeroButtons = styled.div`
   }
 `
 
-const IndexPage = () => (
+const HomePage = () => (
   <>
     <SEO title="Home" />
     <Hero>
@@ -84,4 +87,4 @@ const IndexPage = () => (
   </>
 )
 
-export default IndexPage
+export default HomePage

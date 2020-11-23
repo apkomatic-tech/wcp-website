@@ -13,7 +13,8 @@ const HeaderView = styled.header`
   left: 0;
   right: 0;
   width: 100%;
-  background-color: ${(props) => (props.isHome ? "transparent" : "var(--red)")};
+  background-color: ${(props) =>
+    props.isHome ? "transparent" : "var(--primary)"};
   padding: 1rem 2rem;
   font-size: 1.5rem;
 `
@@ -35,13 +36,12 @@ const BrandLink = styled(Link)`
 `
 
 const DesktopContactBtn = styled(Link)`
-  border: 2px solid var(--white);
+  border: 1px solid var(--white);
   background: transparent;
   border-radius: 6px;
   text-align: center;
   color: var(--white);
   padding: 0.5rem 1rem;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   &:hover,
