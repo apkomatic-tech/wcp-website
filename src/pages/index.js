@@ -61,7 +61,6 @@ const HeroButtons = styled.div`
     flex-direction: column;
     a {
       width: 100%;
-      display: block;
       &:not(:last-of-type) {
         margin-bottom: 1rem;
       }

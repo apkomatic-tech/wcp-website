@@ -49,7 +49,7 @@ const FooterCopy = styled.div`
   font-size: 1.1rem;
 `
 
-export default function () {
+export default function ({ siteTitle }) {
   return (
     <Footer>
       <FooterContainer>
@@ -82,7 +82,7 @@ export default function () {
         </FooterAddressCols>
       </FooterContainer>
       <FooterCopy>
-        {new Date().getFullYear()} &copy; Work Creation Program, Inc.
+        {new Date().getFullYear()} &copy; {siteTitle}
       </FooterCopy>
     </Footer>
   )

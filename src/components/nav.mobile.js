@@ -124,7 +124,7 @@ const mobileNavVariants = {
   },
 }
 
-export default function () {
+export default function ({ siteTitle }) {
   const { mobileNavOpen, closeMobileNav } = useContext(ctx)
   return (
     <MobileNav
@@ -134,7 +134,7 @@ export default function () {
     >
       <MobileNavHeader>
         <MobileBrand to="/" onClick={closeMobileNav}>
-          Work Creation Program
+          {siteTitle}
         </MobileBrand>
         <MobileClose
           className="close"

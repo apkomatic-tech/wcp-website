@@ -23,7 +23,6 @@ const Button = styled.button`
   svg {
     margin-left: 0.5rem;
     font-size: 120%;
-    transform: translateY(2px);
     transition: 100ms ease;
   }
   &:hover,
@@ -34,7 +33,7 @@ const Button = styled.button`
   }
   &:hover svg,
   &:focus svg {
-    transform: translateY(2px) translateX(3px);
+    transform: translateX(3px);
   }
 `
 const ButtonLink = Button.withComponent(Link)

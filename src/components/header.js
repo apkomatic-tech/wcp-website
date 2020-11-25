@@ -1,13 +1,13 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { Link } from "gatsby"
+import { Link, graphql, useStaticQuery } from "gatsby"
 import { RiArrowRightSLine, RiMenuLine } from "react-icons/ri"
 
 import { ctx } from "../context/nav"
 import DesktopNav from "./nav.desktop"
 import MobileNav from "./nav.mobile"
 
-const HeaderView = styled.header`
+const Header = styled.header`
   position: ${(props) => (props.isHome ? "absolute" : "relative")};
   top: 0;
   left: 0;
@@ -17,12 +17,12 @@ const HeaderView = styled.header`
     props.isHome ? "transparent" : "var(--primary)"};
   padding: 1rem 2rem;
 `
-const HeaderViewContainer = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `
-const BrandLink = styled(Link)`
+const HeaderBrand = styled(Link)`
   font-size: 2.2rem;
   color: var(--white);
   &:hover,
@@ -34,7 +34,7 @@ const BrandLink = styled(Link)`
   }
 `
 
-const DesktopContactBtn = styled(Link)`
+const HeaderContactButton = styled(Link)`
   border: 1px solid var(--white);
   background: transparent;
   border-radius: 6px;
@@ -60,7 +60,7 @@ const DesktopContactBtn = styled(Link)`
   }
 `
 // styles specific to mobile
-const MobileNavToggle = styled.button`
+const NavToggle = styled.button`
   border: 0;
   background: transparent;
   appearance: none;
@@ -73,24 +73,24 @@ const MobileNavToggle = styled.button`
   }
 `
 
-export default function ({ isHome }) {
+export default function ({ siteTitle, isHome }) {
   const { openMobileNav } = useContext(ctx)
 
   return (
     <>
-      <HeaderView isHome={isHome}>
-        <HeaderViewContainer>
-          <BrandLink to="/">Work Creation Program</BrandLink>
-          <DesktopNav />
-          <DesktopContactBtn to="/contact-us">
+      <Header isHome={isHome}>
+        <HeaderContainer>
+          <HeaderBrand to="/">{siteTitle}</HeaderBrand>
+          <DesktopNav siteTitle={siteTitle} />
+          <HeaderContactButton to="/contact-us">
             Contact Us <RiArrowRightSLine />{" "}
-          </DesktopContactBtn>
-          <MobileNavToggle onClick={() => openMobileNav()}>
+          </HeaderContactButton>
+          <NavToggle onClick={() => openMobileNav()}>
             <RiMenuLine />
-          </MobileNavToggle>
-        </HeaderViewContainer>
-        <MobileNav />
-      </HeaderView>
+          </NavToggle>
+        </HeaderContainer>
+        <MobileNav siteTitle={siteTitle} />
+      </Header>
     </>
   )
 }
