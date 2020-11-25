@@ -2,11 +2,11 @@ import React from "react"
 import styled from "styled-components"
 
 const Footer = styled.footer`
-  background-color: #fdfcf5;
   padding-top: 2.5rem;
   margin-top: 3rem;
   font-size: 1.4rem;
-  border: 8px solid #f3f1e7;
+  background-color: var(--white);
+  color: rgba(1, 1, 1, 0.8);
 `
 const FooterContainer = styled.div`
   max-width: var(--pageWidth);
@@ -45,7 +45,7 @@ const FooterCopy = styled.div`
   padding: 2.5rem;
   margin: auto;
   max-width: calc(100% - 4rem);
-  border-top: 1px solid rgba(1, 1, 1, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 1.1rem;
 `
 

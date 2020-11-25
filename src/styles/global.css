@@ -1,11 +1,11 @@
 :root {
-  --black: #1d1c21;
+  --black: #111;
   --grey: #4a4a4a;
-  --white: #edf2f4;
-  --red: #8f0c43;
-  --yellow: #f08700;
-  --primary: #68124a;
+  --white: #fafafa;
+  --secondary: #fb5607;
+  --primary: #682cbb;
   --pageWidth: 96rem;
+  --bodyColor: #fff;
 }
 
 html {
@@ -23,7 +23,7 @@ body {
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
   line-height: 1.5;
-  background-color: var(--white);
+  background-color: var(--bodyColor);
 }
 
 .text-center {
@@ -70,11 +70,9 @@ p {
 
 a {
   color: var(--black);
-  &:hover {
-    color: var(--red);
-  }
 }
 
+a:hover,
 .highlight {
-  color: var(--red);
+  color: var(--primary);
 }

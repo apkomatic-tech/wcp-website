@@ -37,6 +37,7 @@ const TopNavLink = styled(Link)`
   &:hover,
   &:focus {
     opacity: 1;
+    color: var(--white);
   }
 `
 
@@ -78,7 +79,7 @@ const Dropdown = styled.ul`
   transition: opacity 50ms ease;
   padding: 1rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  border-top: 5px solid var(--yellow);
+  border-top: 5px solid var(--secondary);
   list-style: none;
   margin: 0;
 `
