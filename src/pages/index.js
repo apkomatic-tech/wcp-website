@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { RiArrowRightSLine } from "react-icons/ri"
 
 import SEO from "../components/seo"
 import { ButtonLink } from "../components/shared/Button"
@@ -80,7 +81,12 @@ const HomePage = () => (
           environments.
         </p>
         <HeroButtons>
-          <ButtonLink to="/">See our programs</ButtonLink>
+          <ButtonLink primary to="/programs">
+            See Our Programs <RiArrowRightSLine />
+          </ButtonLink>
+          <ButtonLink to="/training">
+            Explore Training <RiArrowRightSLine />
+          </ButtonLink>
         </HeroButtons>
       </div>
     </Hero>
