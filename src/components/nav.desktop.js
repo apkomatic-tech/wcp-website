@@ -20,13 +20,9 @@ const TopNavList = styled.ul`
 const TopNavItem = styled.li`
   padding: 0;
   display: inline-block;
-  /* margin: 0 3rem 0 0; */
   @media screen and (max-width: 1024px) {
     margin: 0 2rem 0 0;
   }
-  /* &:last-of-type {
-    margin-right: 0;
-  } */
 `
 const TopNavLink = styled(Link)`
   position: relative;
@@ -99,6 +95,11 @@ export default function () {
         <TopNavItem>
           <TopNavLink activeClassName="active" to="/about-us">
             About
+          </TopNavLink>
+        </TopNavItem>
+        <TopNavItem>
+          <TopNavLink activeClassName="active" to="/careers">
+            Careers
           </TopNavLink>
         </TopNavItem>
         <TopNavItemWithDropdown>
