@@ -16,7 +16,6 @@ const HeaderView = styled.header`
   background-color: ${(props) =>
     props.isHome ? "transparent" : "var(--primary)"};
   padding: 1rem 2rem;
-  font-size: 1.5rem;
 `
 const HeaderViewContainer = styled.div`
   display: flex;
