@@ -56,6 +56,12 @@ const HeaderContactButton = styled(Link)`
     transform: translateX(4px);
   }
   @media screen and (max-width: 1024px) {
+    font-size: 1.5rem;
+    svg {
+      font-size: 1.8rem;
+    }
+  }
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `
@@ -68,7 +74,7 @@ const NavToggle = styled.button`
   font-size: 2.5rem;
   cursor: pointer;
   padding: 0;
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 767px) {
     display: none;
   }
 `

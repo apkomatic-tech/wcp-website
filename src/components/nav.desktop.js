@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { RiArrowDownSLine } from "react-icons/ri"
 
 const Nav = styled.nav`
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `
@@ -16,13 +16,14 @@ const TopNavList = styled.ul`
   grid-auto-flow: column;
   align-items: center;
   grid-gap: 3rem;
+  @media screen and (max-width: 1024px) {
+    grid-gap: 1rem;
+    font-size: 1.5rem;
+  }
 `
 const TopNavItem = styled.li`
   padding: 0;
   display: inline-block;
-  @media screen and (max-width: 1024px) {
-    margin: 0 2rem 0 0;
-  }
 `
 const TopNavLink = styled(Link)`
   position: relative;
@@ -40,9 +41,15 @@ const TopNavLink = styled(Link)`
 const TopNavItemWithDropdown = styled.li`
   position: relative;
   z-index: 1;
+  // NOTE: keep dropdown class on Dropdown component so we can reference it from parent component ^
+  .dropdown {
+    visibility: hidden;
+    transition: 0.1s 0.2s;
+  }
   &:hover .dropdown,
   &:focus .dropdown {
     visibility: visible;
+    transition-delay: 0s;
   }
 `
 const DropdownButton = styled.button`
@@ -56,6 +63,7 @@ const DropdownButton = styled.button`
   display: flex;
   align-items: center;
   padding: 0;
+  line-height: 1;
   svg {
     margin-left: 0.5rem;
   }
@@ -69,18 +77,27 @@ const Dropdown = styled.ul`
   box-sizing: border-box;
   position: absolute;
   left: 0;
+  top: calc(100% + 5px);
   min-width: 260px;
   background: var(--white);
-  visibility: hidden;
-  transition: opacity 50ms ease;
-  padding: 1rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  border-top: 5px solid var(--secondary);
   list-style: none;
   margin: 0;
+  padding: 1rem 0;
 `
 const DropdownLink = styled(Link)`
+  padding: 1rem;
   color: var(--black);
+  display: block;
+  &.active,
+  &:hover,
+  &:focus {
+    background-color: #eeddf3;
+    color: var(--primary);
+  }
+  @media screen and (max-width: 1024px) {
+    font-size: 1.5rem;
+  }
 `
 
 export default function () {
