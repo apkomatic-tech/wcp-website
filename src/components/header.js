@@ -1,9 +1,10 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { Link, graphql, useStaticQuery } from "gatsby"
+import { Link } from "gatsby"
 import { RiArrowRightSLine, RiMenuLine } from "react-icons/ri"
 
 import { ctx } from "../context/nav"
+import { media } from "../styles/mixins"
 import DesktopNav from "./nav.desktop"
 import MobileNav from "./nav.mobile"
 
@@ -29,7 +30,7 @@ const HeaderBrand = styled(Link)`
   &:focus {
     color: var(--white);
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${media.small}) {
     font-size: 1.8rem;
   }
 `
@@ -61,7 +62,7 @@ const HeaderContactButton = styled(Link)`
       font-size: 1.8rem;
     }
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${media.small}) {
     display: none;
   }
 `
@@ -74,7 +75,7 @@ const NavToggle = styled.button`
   font-size: 2.5rem;
   cursor: pointer;
   padding: 0;
-  @media screen and (min-width: 767px) {
+  @media screen and (min-width: ${media.small}) {
     display: none;
   }
 `

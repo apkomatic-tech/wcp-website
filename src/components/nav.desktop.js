@@ -44,12 +44,12 @@ const TopNavItemWithDropdown = styled.li`
   // NOTE: keep dropdown class on Dropdown component so we can reference it from parent component ^
   .dropdown {
     visibility: hidden;
-    transition: 0.1s 0.2s;
+    transition: 0.1s 0.1s;
   }
   &:hover .dropdown,
   &:focus .dropdown {
     visibility: visible;
-    transition-delay: 0s;
+    transition-delay: 0;
   }
 `
 const DropdownButton = styled.button`
