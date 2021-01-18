@@ -43,12 +43,15 @@ const TopNavItemWithDropdown = styled.li`
   z-index: 10;
   // NOTE: keep dropdown class on Dropdown component so we can reference it from parent component ^
   .dropdown {
-    visibility: hidden;
-    /* transition: 0.1s 0.1s; */
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
+    transition: 300ms ease;
   }
   &.open .dropdown {
-    visibility: visible;
-    /* transition-delay: 0; */
+    pointer-events: auto;
+    transform: translateY(0);
+    opacity: 1;
   }
 `;
 const DropdownButton = styled.button`
@@ -100,66 +103,76 @@ const DropdownLink = styled(Link)`
   }
 `;
 
-export default function () {
+const useNavDropdown = () => {
   const topNavListRef = useRef();
 
+  function registerClickOutside(e) {
+    if (
+      e.target.classList.contains('.with-dropdown.open') ||
+      (!e.target.href && e.target.closest('.with-dropdown.open'))
+    ) {
+      return;
+    }
+
+    topNavListRef.current
+      .querySelectorAll('.with-dropdown.open')
+      .forEach((d) => d.classList.remove('open'));
+  }
+
+  function handleDropdownButtonClick(e) {
+    e.stopPropagation();
+
+    const parentDropdown = e.target.closest('.with-dropdown');
+
+    if (!parentDropdown) {
+      return;
+    }
+
+    // close all existing open dropdowns
+    topNavListRef.current
+      .querySelectorAll('.with-dropdown.open')
+      .forEach((openDropdown) => {
+        if (openDropdown !== parentDropdown) {
+          openDropdown.classList.remove('open');
+        }
+      });
+
+    parentDropdown.classList.toggle('open');
+  }
+
   useEffect(() => {
-    function registerClickOutside(e) {
-      if (
-        e.target.classList.contains('.with-dropdown.open') ||
-        (!e.target.href && e.target.closest('.with-dropdown.open'))
-      ) {
-        return;
-      }
-
-      topNavListRef.current
-        .querySelectorAll('.with-dropdown.open')
-        .forEach((d) => d.classList.remove('open'));
+    if (!topNavListRef.current) {
+      return;
     }
 
-    function handleDropdownButtonClick(e) {
-      e.stopPropagation();
+    const dropdownBtns = topNavListRef.current.querySelectorAll(
+      'button[type="button"]'
+    );
 
-      const parentDropdown = e.target.closest('.with-dropdown');
-
-      if (!parentDropdown) {
-        return;
-      }
-
-      // close all existing open dropdowns
-      topNavListRef.current
-        .querySelectorAll('.with-dropdown.open')
-        .forEach((d) => {
-          if (d !== parentDropdown) {
-            d.classList.remove('open');
-          }
-        });
-
-      // if (e.type === 'click' || e.key === 'Enter') {
-      parentDropdown.classList.toggle('open');
-      // }
-    }
-
-    const dropdownBtns = document.querySelectorAll('button[type="button"]');
     dropdownBtns.forEach((btn) => {
       btn.addEventListener('click', handleDropdownButtonClick);
-      btn.addEventListener('focusin', handleDropdownButtonClick);
-      btn.addEventListener('focusout', handleDropdownButtonClick);
     });
 
     window.addEventListener('click', registerClickOutside);
 
+    // clean up
+
     return () => {
-      // clean up
       dropdownBtns.forEach((btn) => {
         btn.removeEventListener('click', handleDropdownButtonClick);
-        btn.removeEventListener('focusin', handleDropdownButtonClick);
-        btn.removeEventListener('focusout', handleDropdownButtonClick);
       });
 
       window.removeEventListener('click', registerClickOutside);
     };
   }, []);
+
+  return {
+    topNavListRef,
+  };
+};
+
+export default function () {
+  const { topNavListRef } = useNavDropdown();
 
   return (
     <Nav>
