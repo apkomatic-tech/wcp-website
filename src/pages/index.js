@@ -1,10 +1,10 @@
-import React from "react"
-import styled from "styled-components"
-import { RiArrowRightSLine } from "react-icons/ri"
+import React from "react";
+import styled from "styled-components";
+import { RiArrowRightSLine } from "react-icons/ri";
 
-import SEO from "../components/seo"
-import { ButtonLink } from "../components/shared/Button"
-import heroBackground from "../images/hero.jpg"
+import SEO from "../components/seo";
+import { ButtonLink } from "../components/shared/Button";
+import heroBackground from "../images/hero.jpg";
 
 const Hero = styled.div`
   width: 100vw;
@@ -47,7 +47,7 @@ const Hero = styled.div`
       font-size: 1.8rem;
     }
   }
-`
+`;
 
 const HeroButtons = styled.div`
   display: flex;
@@ -66,10 +66,10 @@ const HeroButtons = styled.div`
       }
     }
   }
-`
+`;
 
 const HomePage = () => (
-  <>
+  <div className="landing">
     <SEO title="Home" />
     <Hero>
       <div className="hero-container">
@@ -89,7 +89,7 @@ const HomePage = () => (
         </HeroButtons>
       </div>
     </Hero>
-  </>
-)
+  </div>
+);
 
-export default HomePage
+export default HomePage;

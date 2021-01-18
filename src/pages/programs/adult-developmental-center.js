@@ -1,13 +1,11 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
-import styled from "styled-components"
+import React from "react";
 
-import SEO from "../../components/seo"
+import SEO from "../../components/seo";
+import Page from "../../styles/pageStyles";
 
 export default () => {
   return (
-    <>
+    <Page>
       <SEO title="Programs - Adult Developmental Center" />
       <h1>
         Programs &gt;{" "}
@@ -57,6 +55,6 @@ export default () => {
         Centers: Adult Development Center Vendor # H66357; Transportation Vendor
         #H13685
       </p>
-    </>
-  )
-}
+    </Page>
+  );
+};

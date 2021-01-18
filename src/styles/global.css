@@ -76,3 +76,7 @@ a:hover,
 .highlight {
   color: var(--primary);
 }
+
+.page-content .content-block:not(:last-of-type) {
+  margin-bottom: 4rem;
+}

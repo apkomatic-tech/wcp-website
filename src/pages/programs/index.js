@@ -1,9 +1,10 @@
-import { Link } from "gatsby"
-import React from "react"
-import styled from "styled-components"
-import { RiArrowRightSLine } from "react-icons/ri"
+import { Link } from "gatsby";
+import React from "react";
+import styled from "styled-components";
+import { RiArrowRightSLine } from "react-icons/ri";
 
-import SEO from "../../components/seo"
+import SEO from "../../components/seo";
+import Page from "../../styles/pageStyles";
 
 const CardLinkGrid = styled.div`
   display: grid;
@@ -13,7 +14,7 @@ const CardLinkGrid = styled.div`
     place-items: center;
     justify-content: center;
   }
-`
+`;
 
 const CardLink = styled(Link)`
   padding: 2rem;
@@ -41,11 +42,11 @@ const CardLink = styled(Link)`
   .arrow {
     font-size: 4rem;
   }
-`
+`;
 
 export default () => {
   return (
-    <>
+    <Page>
       <SEO title="Programs" />
       <h1>Programs</h1>
       <CardLinkGrid>
@@ -58,6 +59,6 @@ export default () => {
           <RiArrowRightSLine className="arrow" />
         </CardLink>
       </CardLinkGrid>
-    </>
-  )
-}
+    </Page>
+  );
+};

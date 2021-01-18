@@ -1,6 +1,5 @@
-import React from "react"
-import styled from "styled-components"
-import { Link } from "gatsby"
+import styled from "styled-components";
+import { Link } from "gatsby";
 
 const Button = styled.button`
   appearance: none;
@@ -35,8 +34,8 @@ const Button = styled.button`
   &:focus svg {
     transform: translateX(3px);
   }
-`
-const ButtonLink = Button.withComponent(Link)
-const ButtonLinkExternal = Button.withComponent("a")
+`;
+const ButtonLink = Button.withComponent(Link);
+const ButtonLinkExternal = Button.withComponent("a");
 
-export { Button, ButtonLink, ButtonLinkExternal }
+export { Button, ButtonLink, ButtonLinkExternal };

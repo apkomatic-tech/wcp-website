@@ -1,9 +1,10 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
-import styled from "styled-components"
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import Img from "gatsby-image";
+import styled from "styled-components";
 
-import SEO from "../../components/seo"
+import SEO from "../../components/seo";
+import Page from "../../styles/pageStyles";
 
 const PageStyles = styled.section`
   display: grid;
@@ -17,7 +18,7 @@ const PageStyles = styled.section`
       grid-row: 2;
     }
   }
-`
+`;
 
 export default () => {
   const data = useStaticQuery(graphql`
@@ -30,10 +31,9 @@ export default () => {
         }
       }
     }
-  `)
-  console.log(data)
+  `);
   return (
-    <>
+    <Page>
       <SEO title="Training - Social Skills" />
       <h1>
         Training &gt; <span className="highlight">Social Skills</span>
@@ -54,6 +54,6 @@ export default () => {
           life-style.
         </p>
       </PageStyles>
-    </>
-  )
-}
+    </Page>
+  );
+};

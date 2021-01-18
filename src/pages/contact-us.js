@@ -1,9 +1,10 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
-import styled from "styled-components"
+import React from "react";
+import { graphql } from "gatsby";
+import Img from "gatsby-image";
+import styled from "styled-components";
 
-import SEO from "../components/seo"
+import SEO from "../components/seo";
+import Page from "../styles/pageStyles";
 
 const CardDeck = styled.div`
   max-width: 96rem;
@@ -16,7 +17,7 @@ const CardDeck = styled.div`
     max-width: 100%;
     grid-template-columns: 1fr;
   }
-`
+`;
 
 const Card = styled.div`
   background: var(--white);
@@ -45,41 +46,38 @@ const Card = styled.div`
     font-size: 2rem;
     margin: 0 0 1rem;
   }
-`
+`;
 
-export default () => {
-  const imageData = useStaticQuery(graphql`
-    query {
-      image1: file(relativePath: { eq: "man-mock.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 100, quality: 100) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      image2: file(relativePath: { eq: "woman-mock-2.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 100, quality: 100) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      image3: file(relativePath: { eq: "man-mock-2.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 100, quality: 100) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `)
+export default ({ data }) => {
+  const { nodes: contactData } = data.allSanityContact;
 
   return (
-    <>
+    <Page>
       <SEO title="Contact Us" />
       <h1>Contact Us</h1>
       <CardDeck>
-        <Card>
+        {contactData.map((contact) => {
+          return (
+            <Card key={contact._id}>
+              <div className="card-image">
+                <Img fluid={contact.avatar.asset.fluid} alt={contact.name} />
+              </div>
+              <div className="card-content">
+                <h1>{contact.name}</h1>
+                <p>{contact.title}</p>
+                <a
+                  href={`mailto:${contact.email}`}
+                  style={{
+                    whiteSpace: "pre-wrap",
+                  }}
+                >
+                  {contact.email}
+                </a>
+              </div>
+            </Card>
+          );
+        })}
+        {/* <Card>
           <div className="card-image">
             <Img
               fluid={imageData.image1.childImageSharp.fluid}
@@ -121,8 +119,8 @@ export default () => {
             </p>
           </div>
         </Card>
-        <Card>
-          <div className="card-image">
+        <Card> */}
+        {/* <div className="card-image">
             <Img
               fluid={imageData.image3.childImageSharp.fluid}
               alt="john Doe"
@@ -138,8 +136,28 @@ export default () => {
               </a>
             </p>
           </div>
-        </Card>
+        </Card> */}
       </CardDeck>
-    </>
-  )
-}
+    </Page>
+  );
+};
+
+export const query = graphql`
+  query MyQuery {
+    allSanityContact {
+      nodes {
+        _id
+        name
+        title
+        email
+        avatar {
+          asset {
+            fluid(maxWidth: 300) {
+              ...GatsbySanityImageFluid
+            }
+          }
+        }
+      }
+    }
+  }
+`;

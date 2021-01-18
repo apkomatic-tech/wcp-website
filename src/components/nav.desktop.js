@@ -1,13 +1,13 @@
-import React from "react"
-import { Link } from "gatsby"
-import styled from "styled-components"
-import { RiArrowDownSLine } from "react-icons/ri"
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'gatsby';
+import styled from 'styled-components';
+import { RiArrowDownSLine } from 'react-icons/ri';
 
 const Nav = styled.nav`
   @media screen and (max-width: 767px) {
     display: none;
   }
-`
+`;
 const TopNavList = styled.ul`
   list-style: none;
   padding: 0;
@@ -20,11 +20,11 @@ const TopNavList = styled.ul`
     grid-gap: 1rem;
     font-size: 1.5rem;
   }
-`
+`;
 const TopNavItem = styled.li`
   padding: 0;
   display: inline-block;
-`
+`;
 const TopNavLink = styled(Link)`
   position: relative;
   z-index: 1;
@@ -36,22 +36,21 @@ const TopNavLink = styled(Link)`
     opacity: 1;
     color: var(--white);
   }
-`
+`;
 
 const TopNavItemWithDropdown = styled.li`
   position: relative;
-  z-index: 1;
+  z-index: 10;
   // NOTE: keep dropdown class on Dropdown component so we can reference it from parent component ^
   .dropdown {
     visibility: hidden;
-    transition: 0.1s 0.1s;
+    /* transition: 0.1s 0.1s; */
   }
-  &:hover .dropdown,
-  &:focus .dropdown {
+  &.open .dropdown {
     visibility: visible;
-    transition-delay: 0;
+    /* transition-delay: 0; */
   }
-`
+`;
 const DropdownButton = styled.button`
   appearance: none;
   color: var(--white);
@@ -72,7 +71,7 @@ const DropdownButton = styled.button`
   &:focus {
     opacity: 1;
   }
-`
+`;
 const Dropdown = styled.ul`
   box-sizing: border-box;
   position: absolute;
@@ -84,7 +83,8 @@ const Dropdown = styled.ul`
   list-style: none;
   margin: 0;
   padding: 1rem 0;
-`
+  z-index: 99;
+`;
 const DropdownLink = styled(Link)`
   padding: 1rem;
   color: var(--black);
@@ -98,12 +98,72 @@ const DropdownLink = styled(Link)`
   @media screen and (max-width: 1024px) {
     font-size: 1.5rem;
   }
-`
+`;
 
 export default function () {
+  const topNavListRef = useRef();
+
+  useEffect(() => {
+    function registerClickOutside(e) {
+      if (
+        e.target.classList.contains('.with-dropdown.open') ||
+        (!e.target.href && e.target.closest('.with-dropdown.open'))
+      ) {
+        return;
+      }
+
+      topNavListRef.current
+        .querySelectorAll('.with-dropdown.open')
+        .forEach((d) => d.classList.remove('open'));
+    }
+
+    function handleDropdownButtonClick(e) {
+      e.stopPropagation();
+
+      const parentDropdown = e.target.closest('.with-dropdown');
+
+      if (!parentDropdown) {
+        return;
+      }
+
+      // close all existing open dropdowns
+      topNavListRef.current
+        .querySelectorAll('.with-dropdown.open')
+        .forEach((d) => {
+          if (d !== parentDropdown) {
+            d.classList.remove('open');
+          }
+        });
+
+      // if (e.type === 'click' || e.key === 'Enter') {
+      parentDropdown.classList.toggle('open');
+      // }
+    }
+
+    const dropdownBtns = document.querySelectorAll('button[type="button"]');
+    dropdownBtns.forEach((btn) => {
+      btn.addEventListener('click', handleDropdownButtonClick);
+      btn.addEventListener('focusin', handleDropdownButtonClick);
+      btn.addEventListener('focusout', handleDropdownButtonClick);
+    });
+
+    window.addEventListener('click', registerClickOutside);
+
+    return () => {
+      // clean up
+      dropdownBtns.forEach((btn) => {
+        btn.removeEventListener('click', handleDropdownButtonClick);
+        btn.removeEventListener('focusin', handleDropdownButtonClick);
+        btn.removeEventListener('focusout', handleDropdownButtonClick);
+      });
+
+      window.removeEventListener('click', registerClickOutside);
+    };
+  }, []);
+
   return (
     <Nav>
-      <TopNavList>
+      <TopNavList ref={topNavListRef}>
         <TopNavItem>
           <TopNavLink activeClassName="active" to="/">
             Home
@@ -114,12 +174,12 @@ export default function () {
             About
           </TopNavLink>
         </TopNavItem>
-        <TopNavItem>
+        {/* <TopNavItem>
           <TopNavLink activeClassName="active" to="/careers">
             Careers
           </TopNavLink>
-        </TopNavItem>
-        <TopNavItemWithDropdown>
+        </TopNavItem> */}
+        <TopNavItemWithDropdown className="with-dropdown">
           <DropdownButton type="button">
             Programs <RiArrowDownSLine />
           </DropdownButton>
@@ -166,5 +226,5 @@ export default function () {
         </TopNavItemWithDropdown>
       </TopNavList>
     </Nav>
-  )
+  );
 }
